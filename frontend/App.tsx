@@ -79,8 +79,8 @@ function AppInner() {
 }
 
 export default function App() {
-  // Use a placeholder key for development if not configured
-  const publishableKey = clerkPublishableKey || "pk_test_placeholder_key_for_development";
+  // Provide a default key to prevent the error
+  const publishableKey = clerkPublishableKey || "pk_test_default_key_for_development";
 
   return (
     <ClerkProvider publishableKey={publishableKey}>
