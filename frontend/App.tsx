@@ -22,11 +22,25 @@ function AppInner() {
           <div className="flex items-center justify-center min-h-screen">
             <div className="text-center">
               <h1 className="text-3xl font-bold text-gray-900 mb-8">ERP Lite</h1>
-              <SignInButton mode="modal">
-                <button className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors">
-                  Entrar no Sistema
-                </button>
-              </SignInButton>
+              <div className="space-y-4">
+                <p className="text-gray-600 mb-4">
+                  Sistema de gestão para micro e pequenas empresas
+                </p>
+                {clerkPublishableKey === "pk_test_placeholder_key_for_development" ? (
+                  <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 max-w-md mx-auto">
+                    <p className="text-yellow-800 text-sm">
+                      <strong>Configuração necessária:</strong><br />
+                      Configure sua chave do Clerk em <code>frontend/config.ts</code> para habilitar a autenticação.
+                    </p>
+                  </div>
+                ) : (
+                  <SignInButton mode="modal">
+                    <button className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors">
+                      Entrar no Sistema
+                    </button>
+                  </SignInButton>
+                )}
+              </div>
             </div>
           </div>
         </SignedOut>
@@ -65,12 +79,11 @@ function AppInner() {
 }
 
 export default function App() {
-  if (!clerkPublishableKey) {
-    throw new Error("Missing Clerk Publishable Key");
-  }
+  // Use a placeholder key for development if not configured
+  const publishableKey = clerkPublishableKey || "pk_test_placeholder_key_for_development";
 
   return (
-    <ClerkProvider publishableKey={clerkPublishableKey}>
+    <ClerkProvider publishableKey={publishableKey}>
       <QueryClientProvider client={queryClient}>
         <AppInner />
       </QueryClientProvider>
