@@ -6,31 +6,31 @@ Sistema de gestão completo para micro e pequenas empresas, com funcionalidades 
 
 ### 1. Configurar Autenticação (Clerk)
 
-1. **Criar conta no Clerk:**
-   - Acesse [https://clerk.com](https://clerk.com)
-   - Crie uma conta gratuita
-   - Faça login no dashboard
+**Você já tem as chaves do Clerk! Agora configure:**
 
-2. **Criar aplicação:**
-   - Clique em "Add application"
-   - Escolha um nome (ex: "ERP Lite")
-   - Selecione métodos de autenticação (email/senha)
-   - Clique em "Create application"
+#### Backend (Secret Key):
+1. Na interface do Leap, vá para a aba **"Infrastructure"**
+2. Adicione um novo secret:
+   - **Nome:** `ClerkSecretKey`
+   - **Valor:** `sk_test_Sxb6RH8wQHrUOYQNygfgmBbYIAnTVWRFSrNZ08GRxi`
 
-3. **Obter chaves:**
-   - No dashboard, vá em "API Keys"
-   - Copie a **Publishable key** (começa com `pk_test_`)
-   - Copie a **Secret key** (começa com `sk_test_`)
-
-4. **Configurar no projeto:**
-   - Abra `frontend/config.ts`
-   - Substitua `pk_test_your_publishable_key_here` pela sua Publishable key
-   - Na aba "Infrastructure" do Leap, adicione um secret chamado `ClerkSecretKey` com sua Secret key
+#### Frontend (Publishable Key):
+1. No dashboard do Clerk, vá em **"API Keys"**
+2. Copie a **"Publishable key"** (começa com `pk_test_`)
+3. Abra `frontend/config.ts`
+4. Substitua a linha:
+   ```typescript
+   export const clerkPublishableKey = "";
+   ```
+   Por:
+   ```typescript
+   export const clerkPublishableKey = "pk_test_SUA_CHAVE_AQUI";
+   ```
 
 ### 2. Configurar Domínio Autorizado
 
 No dashboard do Clerk:
-1. Vá em "Domains"
+1. Vá em **"Domains"**
 2. Adicione seu domínio de desenvolvimento (ex: `https://your-app.lp.dev`)
 
 ## 📋 Funcionalidades
@@ -75,3 +75,9 @@ No dashboard do Clerk:
 - Multiempresas
 - Integração com e-commerce
 - Relatórios avançados com gráficos
+
+## 🔑 Status da Configuração
+
+- ✅ **Secret Key configurada** - `sk_test_Sxb6RH8wQHrUOYQNygfgmBbYIAnTVWRFSrNZ08GRxi`
+- ⏳ **Publishable Key** - Precisa ser configurada em `frontend/config.ts`
+- ⏳ **Domínio autorizado** - Precisa ser adicionado no dashboard do Clerk
