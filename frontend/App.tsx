@@ -26,12 +26,19 @@ function AppInner() {
                 <p className="text-gray-600 mb-4">
                   Sistema de gestão para micro e pequenas empresas
                 </p>
-                {clerkPublishableKey === "pk_test_placeholder_key_for_development" ? (
-                  <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 max-w-md mx-auto">
-                    <p className="text-yellow-800 text-sm">
-                      <strong>Configuração necessária:</strong><br />
-                      Configure sua chave do Clerk em <code>frontend/config.ts</code> para habilitar a autenticação.
+                {!clerkPublishableKey || clerkPublishableKey === "" ? (
+                  <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-6 max-w-md mx-auto">
+                    <h3 className="text-yellow-800 font-semibold mb-2">Configuração Necessária</h3>
+                    <p className="text-yellow-800 text-sm mb-4">
+                      Para usar o sistema, você precisa configurar a autenticação do Clerk.
                     </p>
+                    <div className="text-left text-sm text-yellow-700 space-y-2">
+                      <p><strong>1.</strong> Acesse <a href="https://clerk.com" target="_blank" rel="noopener noreferrer" className="underline">clerk.com</a> e crie uma conta</p>
+                      <p><strong>2.</strong> Crie uma nova aplicação</p>
+                      <p><strong>3.</strong> Vá em "API Keys" no dashboard</p>
+                      <p><strong>4.</strong> Copie a "Publishable key"</p>
+                      <p><strong>5.</strong> Cole a chave em <code className="bg-yellow-100 px-1 rounded">frontend/config.ts</code></p>
+                    </div>
                   </div>
                 ) : (
                   <SignInButton mode="modal">
@@ -79,11 +86,17 @@ function AppInner() {
 }
 
 export default function App() {
-  // Provide a default key to prevent the error
-  const publishableKey = clerkPublishableKey || "pk_test_default_key_for_development";
+  // Only render ClerkProvider if we have a valid publishable key
+  if (!clerkPublishableKey || clerkPublishableKey === "") {
+    return (
+      <QueryClientProvider client={queryClient}>
+        <AppInner />
+      </QueryClientProvider>
+    );
+  }
 
   return (
-    <ClerkProvider publishableKey={publishableKey}>
+    <ClerkProvider publishableKey={clerkPublishableKey}>
       <QueryClientProvider client={queryClient}>
         <AppInner />
       </QueryClientProvider>
