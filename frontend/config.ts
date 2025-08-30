@@ -5,7 +5,7 @@
 // 4. For the backend secret key, go to Infrastructure tab in Leap and set "ClerkSecretKey" to: sk_test_Sxb6RH8wQHrUOYQNygfgmBbYIAnTVWRFSrNZ08GRxi
 
 // Replace this with your actual Clerk publishable key:
-export const clerkPublishableKey = "";
+export const clerkPublishableKey = "pk_test_Y2xldmVyLW1heWZseS01MS5jbGVyay5hY2NvdW50cy5kZXYk";
 
 // Example of what it should look like:
 // export const clerkPublishableKey = "pk_test_abcd1234efgh5678ijkl9012mnop3456";
